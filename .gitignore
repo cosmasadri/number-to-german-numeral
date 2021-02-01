@@ -1,0 +1,7 @@
+# Workspace config
+.vscode
+
+# Unit test / coverage reports
+htmlcov/
+.coverage
+.pytest_cache
