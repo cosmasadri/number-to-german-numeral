@@ -1,22 +1,29 @@
 def number_to_german_numeral(number):
-    """[summary]
+    """This function is used to translate number into german numeral.
+    Example:
+        * 2 -> "zwei"
+        * 21 -> "einundzwanzig"
+        * 100 -> "einhundert"
+    Currently, the function can only translate number from 0 to 100.
 
     Args:
-        number ([type]): [description]
+        number (int): number which is to be translated to german numeral between 0 to 100
 
     Raises:
-        TypeError: [description]
-        ValueError: [description]
+        TypeError: number arg must have type of int
+        ValueError: number arg must be between 0 and 100
 
     Returns:
-        [type]: [description]
-    """    
+        string: german numeral of number given
+    """
+    # error handling: number argument must be int
     if type(number) != int:
         raise TypeError("number must be int")
-
+    
+    # error handling: number must be inbetween 0 and 100
     if 0 > number or 100 < number:
-        raise ValueError("number must be int inbetween 0 to 100")
-
+        raise ValueError("number must be int inbetween 0 and 100")
+    
     dict_number = dict(
         [
             ("0", "null"),
@@ -36,13 +43,17 @@ def number_to_german_numeral(number):
         return "einhundert"
 
     else:
+        # number is converted to string and reversed
         string_rev_number = str(number)[::-1]
 
         for i in range(len(string_rev_number)):
 
+            # numeral for the ones
+            # (last digit of the actual number, first digit of the reversed number)
             if i == 0:
                 text_number = dict_number[string_rev_number[i]]
 
+            # numeral if the number has 2 digits
             elif i == 1:
                 if string_rev_number[i] == "1":
                     if string_rev_number[i - 1] == "1":
@@ -62,7 +73,6 @@ def number_to_german_numeral(number):
                             text_number = (
                                 dict_number[string_rev_number[i - 1]] + tens_text_number
                             )
-
                 else:
                     if string_rev_number[i - 1] == "1":
                         text_number = "ein"
